@@ -19,21 +19,24 @@ def craw_url(url):
                     urls_list.append(url)
                     try:
                         # pass
-                        print(url)
                         if UrlsGateway().check_for_existing(name=url) is None:
                             UrlsGateway().insert_url(name=url)
-                    except Exception as e:
+                        print(url)
+                    except Exception:
                         print('been here')
                         pass
     return urls_list
 
 
-def crawler_recursion(url):
+def crawler_recursion(url, visited):
+
+    if visited is None:
+        visited = list()
+
+    visited.append(url)
     for link in craw_url(url):
-        # if link != url:
-        if UrlsGateway().check_for_existing(name=link) is not None:
-            # print(link)
-            result = crawler_recursion(link)
+        if link not in visited:
+            result = crawler_recursion(link, visited)
             if result is not None:
                 # print(result)
                 return result
