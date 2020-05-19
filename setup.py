@@ -1,5 +1,5 @@
 from crawler.database.db import *
-from crawler.links.modul import Url # noqa
+from crawler.urls.modul import Url # noqa
 
 
 def main():
