@@ -18,6 +18,3 @@ class UrlsGateway:
 
     def get_urls_server(self, session):
         return session.query(Url.name, Url.server).all()
-
-    # def empty_db(self, session):
-        

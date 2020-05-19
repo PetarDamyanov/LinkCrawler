@@ -8,7 +8,6 @@ def craw_url(url):
     try:
         request = requests.get(url)
         soup = bs(request.content, 'html.parser')
-        # urls_list = list()
 
         for link in soup.findAll('a'):
             url = link.get('href')
@@ -25,7 +24,6 @@ def craw_url(url):
                                 UrlsGateway().insert_url(name=r_in.url, server=r_in.headers["Server"])
                             except Exception as e:
                                 print(e)
-                            # print("yay")
                         except Exception:
                             print("site broke")
                     else:
@@ -33,30 +31,9 @@ def craw_url(url):
 
     except Exception:
         pass
-'''
-                contains_bg = url.count('.bg') > 0
-                contains_hash = url.count('#') > 0
-                js_stuff = url.count('javascript') > 0
-                has_https = url.count('https://')
-                if contains_bg and has_https:
-                    if not contains_hash and not js_stuff:
-                        urls_list.append(url)
-                        try:
-                            # pass
-                            if UrlsGateway().check_for_existing(name=url) is None:
-                                UrlsGateway().insert_url(name=url)
-                                r_in = requests.get(url)
-                                UrlsGateway().insert_url_server(server=r_in.get['Server'])
-                                print(url)
-                            else:
-                                print('been here')
-                        except Exception:
-                            print('been here')
-    except Exception:
-        print('something wrong')
-        return urls_list
-'''
 
+'''
+Used before
 def crawler_recursion(url, visited):
 
     if visited is None:
@@ -71,3 +48,4 @@ def crawler_recursion(url, visited):
                     if result is not None:
                         # print(result)
                         return result
+'''
