@@ -28,12 +28,13 @@ class UrlsGateway:
 
     def get_id(self, session, name):
         return session.query(Url.url_id).filter(Url.name == name).first()[0]
-    
+
     def url_visited_true(self, session, url):
         try:
             session.query(Url).filter(Url.name == url).update({'visited': True})
         except Exception as e:
             raise e
+
 
 @atomicmethods
 class Urls_Source_Gateway:
@@ -49,5 +50,5 @@ class Urls_Source_Gateway:
     def check_for_existing(self, session, *, name):
         return session.query(Url_Source.name).filter(Url_Source.name == name).first()
 
-    # def get_urls_server(self, session):
-    #     return session.query(Url_Source.name, Url_Source.server, Url_Source.time_visit, Url_Source.visited).all()
+    def get_urls_server(self, session):
+        return session.query(func.count(Url_Source.server), Url_Source.server).group_by(Url_Source.server).all()

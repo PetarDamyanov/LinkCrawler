@@ -1,2 +1,2 @@
-87 link 30 sec 1 terminal
-139 link 30 sec 3 terminala
+87 urls 30 sec 1 terminal
+139 urls 30 sec 3 terminala
