@@ -1,0 +1,2 @@
+87 link 30 sec 1 terminal
+139 link 30 sec 3 terminala
