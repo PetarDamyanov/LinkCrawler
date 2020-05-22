@@ -2,6 +2,7 @@ from crawler.urls.modul import Url, Url_Source
 from crawler.decorator.session import atomicmethods
 from sqlalchemy import func
 
+
 @atomicmethods
 class UrlsGateway:
     def __init__(self):
@@ -14,7 +15,7 @@ class UrlsGateway:
             return e
 
     def check_for_existing(self, session, *, name):
-        return session.query(Url.name).filter(Url.name == name).first()
+        return session.query(Url.name).filter(Url.name.like(f'%{name}%')).first()
 
     def get_urls(self, session):
         return session.query(Url.url_id, Url.name, Url.server, Url.time_visit, Url.visited).all()
@@ -22,6 +23,17 @@ class UrlsGateway:
     def get_urls_server(self, session):
         return session.query(func.count(Url.server), Url.server).group_by(Url.server).all()
 
+    def url_visited(self, session, name):
+        return session.query(Url.visited).filter(Url.name == name).first()[0]
+
+    def get_id(self, session, name):
+        return session.query(Url.url_id).filter(Url.name == name).first()[0]
+    
+    def url_visited_true(self, session, url):
+        try:
+            session.query(Url).filter(Url.name == url).update({'visited': True})
+        except Exception as e:
+            raise e
 
 @atomicmethods
 class Urls_Source_Gateway:
