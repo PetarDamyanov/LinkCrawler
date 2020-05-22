@@ -28,7 +28,7 @@ class UrlsGateway:
 
     def get_id(self, session, name):
         return session.query(Url.url_id).filter(Url.name == name).first()[0]
-    
+
     def url_visited_true(self, session, url):
         try:
             session.query(Url).filter(Url.name == url).update({'visited': True})
